@@ -1,17 +1,17 @@
+provider "aws" {
+  region = var.aws_region
+}
+
+data "aws_eks_cluster_auth" "ms-sssm" {
+  name = var.kubernetes_cluster_id
+}
+
 provider "helm" {
   kubernetes {
     cluster_ca_certificate = base64decode(var.kubernetes_cluster_cert_data)
     host                   = var.kubernetes_cluster_endpoint
-    exec {
-      api_version = "client.authentication.k8s.io/v1beta1"
-      command     = "aws"
-      args        = ["eks", "get-token", "--cluster-name", "${var.kubernetes_cluster_name}"]
-    }
+    token                  = data.aws_eks_cluster_auth.ms-sssm.token
   }
-}
-
-provider "aws" {
-  region = var.aws_region
 }
 
 resource "helm_release" "traefik-ingress" {
