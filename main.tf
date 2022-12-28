@@ -17,7 +17,7 @@ provider "aws" {
 resource "helm_release" "traefik-ingress" {
   name       = "ms-traefik-ingress"
   chart      = "traefik"
-  repository = "https://helm.traefik.io/traefik"
+  repository = "https://traefik.github.io/charts"
   values = [<<EOF
   service:
     annotations:
