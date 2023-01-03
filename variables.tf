@@ -21,7 +21,3 @@ variable "eks_nodegroup_id" {
 variable "aws_region" {
   type = string
 }
-
-variable "aws_profile" {
-  type = string
-}
