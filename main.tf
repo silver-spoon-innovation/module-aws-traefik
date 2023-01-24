@@ -1,9 +1,6 @@
 provider "aws" {
   region  = var.aws_region
-}
-
-data "aws_eks_cluster_auth" "ms-sssm" {
-  name = var.kubernetes_cluster_id
+  profile = var.aws_profile
 }
 
 provider "helm" {
