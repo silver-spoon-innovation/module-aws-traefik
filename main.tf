@@ -19,6 +19,8 @@ resource "helm_release" "traefik-ingress" {
   name       = "ms-traefik-ingress"
   chart      = "traefik"
   repository = "https://traefik.github.io/charts"
+  timeout    = 3600
+  
   values = [<<EOF
   service:
     annotations:
