@@ -9,7 +9,7 @@ provider "helm" {
     host                   = var.kubernetes_cluster_endpoint
     exec {
       api_version = "client.authentication.k8s.io/v1beta1"
-      args        = ["eks", "get-token", "--cluster-name", var.kubernetes_cluster_name]
+      args        = ["eks", "get-token", "--cluster-name", var.kubernetes_cluster_name, "--profile", var.aws_profile]
       command     = "aws"
     }
   }
@@ -20,7 +20,7 @@ resource "helm_release" "traefik-ingress" {
   chart      = "traefik"
   repository = "https://traefik.github.io/charts"
   timeout    = 3600
-  
+
   values = [<<EOF
   service:
     annotations:
